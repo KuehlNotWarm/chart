@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport">
+  <title>Line Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Define a fixed-size canvas -->
+  <div class="chart-container" style="position: center; height:60vh; width:80vw">
+  <canvas id="lineChart"></canvas>
+  </div>
+  <script>
+    function fetchDataAndUpdateChart() {
+      fetch('/chart-data')
+        .then(response => response.json())
+        .then(data => {
+          const ctx = document.getElementById('lineChart').getContext('2d');
+          const lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'Height',
+                data: data,
+                borderColor: 'blue',
+                borderWidth: 1,
+                fill: false
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'minute', // Adjust time axis as needed
+                    displayFormats: {
+                      minute: 'HH:mm' // Display format for minutes
+                    }
+                  }
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Height'
+                  }
+                }]
+              }
+            }
+          });
+        })
+        .catch(error => console.error('Error fetching data', error))
+        .finally(() => {
+          // Refresh the page after 5 seconds
+          setTimeout(() => {
+            location.reload(); // Refresh the page
+          }, 5000); // Refresh interval: 5 seconds
+        });
+    }
+
+    // Call the function initially to fetch data and update chart
+    fetchDataAndUpdateChart();
+  </script>
+</body>
+</html>

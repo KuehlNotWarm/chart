@@ -1,0 +1,16 @@
+{
+  "name": "chart",
+  "version": "1.0.0",
+  "description": "display charts in browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kuehl",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^4.4.2",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  }
+}
